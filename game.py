@@ -2,21 +2,29 @@ from clboard import *
 
 
 def main():
-    print('Hewwo mai frend tudei wi r goin tu plai tic tac!\nPrezz entr to continiu')
+    print('Press entr to continue')
     entr = input()
     board = Board()
-    while not board.has_winner():
-        print('Type your move')
-        coor1 = int(input('>'))
-        coor2 = int(input('>'))
-        cell = (coor1, coor2)
-        board.make_move(cell)
-        print(board)
-        print('------')
-        print('Computer makes its move')
-        board.make_random_move()
-        print(board)
-        print('------')
+    while not board.game_over():
+            print('Type your move')
+            while True:
+                try:
+                    coor1 = int(input('>'))
+                    coor2 = int(input('>'))
+                    cell = (coor1, coor2)
+                    board.make_move(cell)
+                    break
+                except OutOfRangeError:
+                    print('Coordinates must be in range [0,2]')
+                except NotEmptyError:
+                    print('Cell is already filled')
+
+            print(board)
+            print('------')
+            print('Computer makes its move')
+            board.make_best_move()
+            print(board)
+            print('------')
 
 
 main()
